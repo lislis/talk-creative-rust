@@ -1,0 +1,86 @@
+:root {
+  --link-color: darkorange;
+  --invert: #d9d9d9;
+}
+
+@font-face {
+  font-family: 'Compagnon';
+  src: url('fonts/Compagnon-Roman.woff2') format('woff2'),
+       url('fonts/Compagnon-Roman.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+  font-size: 26px;
+  font-family: 'Compagnon', serif;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.title {
+  font-size: 4rem;
+}
+
+.subtitle {
+  font-size: 2rem;
+}
+
+.link {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.8rem;
+
+}
+.blend {
+
+  background-blend-mode: difference;
+}
+
+.blend2 {
+  background-blend-mode: exclusion;
+}
+
+.border {
+  text-shadow: 0 0 3px black;
+}
+
+.alex {
+  font-family: 'Compagnon', serif;
+}
+
+a {
+  color: var(--link-color);
+}
+
+.half {
+  width: 50%;
+}
+
+
+.remark-slide-content {
+  background-color: #181818;
+  color: #d9d9d9;
+}
+
+table {
+  margin: auto;
+}
+table th {
+  border-bottom: 1px solid currentColor;
+}
+table th,
+table td {
+  text-align: center;
+  padding: .2em .5em;
+  border-right: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+}
+
+.flip {
+  transform: rotateY(180deg) scale(1.3);
+  display: inline-block;
+}
