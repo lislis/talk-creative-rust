@@ -1,0 +1,11 @@
+[package]
+name = "artgen"
+version = "0.1.0"
+authors = ["lislis <mail@lislis.de>"]
+edition = "2018"
+
+[workspace]
+members = [
+ "square_structures"
+ #"des_ordres",
+]

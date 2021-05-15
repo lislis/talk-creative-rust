@@ -1,0 +1,9 @@
+[package]
+name = "square_structures"
+version = "0.1.0"
+authors = ["lislis <mail@lislis.de>"]
+edition = "2018"
+
+[dependencies]
+nannou = "0.16"
+rand = "0.8.3"
