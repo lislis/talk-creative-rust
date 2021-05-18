@@ -6,50 +6,42 @@ const QUAD_W:f32 = 60.0;
 const QUAD_H:f32 = 80.0;
 const NUM_QUAD_X:i32 = 7;
 const NUM_QUAD_Y:i32 = 9;
-const NUM_QUAD_SCRIBBLES:i32 = 7;
+const MAX_NUM_SQUARES:usize = 10;
 const WIN_W:u32 = 600;
 const WIN_H:u32 = 900;
 
 fn main() {
-    nannou::app(model).update(update).run();
-}
-
-fn gen_points(w:f32, h:f32) -> Vec<Vector2> {
-    let mut points = vec!();
-    let point1 = pt2((random_f32()) * -w, (random_f32()) * -h);
-    points.push(point1);
-    points.push(pt2((random_f32()) * w, (random_f32()) * -h));
-    points.push(pt2((random_f32()) * w, (random_f32()) * h));
-    points.push(pt2((random_f32()) * -w, (random_f32()) * h));
-    points.push(point1);
-    points
-}
-
-fn gen_quads() -> Vec<Quad>{
-    let mut quads = vec!();
-    for i in 0..NUM_QUAD_X {
-        for j in 0..NUM_QUAD_Y {
-            let c = Quad::rando_color();
-            for _num in 0..NUM_QUAD_SCRIBBLES {
-                let mut q = Quad::new(i as f32, j as f32,
-                                      WIN_W as f32, WIN_H as f32,
-                                      QUAD_W, QUAD_H);
-                q.set_color(c);
-                quads.push(q);
-            }
-        }
-    }
-    quads
+    nannou::app(model).run();
 }
 
 #[derive(Debug)]
-struct Quad {
-    pub position: Vector2,
-    pub points: Vec<Vector2>,
+struct Square {
+    points: Vec<Vector2>
+}
+
+impl Square {
+    pub fn new(w:f32, h:f32) -> Self {
+        let mut points = vec!();
+        let point1 = pt2((random_f32()) * -w, (random_f32()) * -h);
+        points.push(point1);
+        points.push(pt2((random_f32()) * w, (random_f32()) * -h));
+        points.push(pt2((random_f32()) * w, (random_f32()) * h));
+        points.push(pt2((random_f32()) * -w, (random_f32()) * h));
+        points.push(point1);
+        Square {
+            points
+        }
+    }
+}
+
+#[derive(Debug)]
+struct SquareStructure {
+    position: Vector2,
+    collection: Vec<Square>,
     color: color::Rgb
 }
 
-impl Quad {
+impl SquareStructure {
     pub fn new(i_x: f32, i_y: f32,
                max_x: f32, max_y: f32,
                w: f32, h: f32) -> Self {
@@ -58,14 +50,20 @@ impl Quad {
         let x = x - (max_x * 0.3);
         let y = y - (max_y * 0.35);
 
-        Quad {
+        let collection = (0..MAX_NUM_SQUARES).into_iter()
+            .map(|_| Square::new(w, h))
+            .collect();
+
+        SquareStructure {
             position: pt2(x, y),
-            points: gen_points(w, h),
-            color: Quad::rando_color()
+            collection,
+            color: SquareStructure::rando_color()
         }
     }
     pub fn set_points(&mut self, w: f32, h: f32) {
-        self.points = gen_points(w, h);
+        self.collection = (0..MAX_NUM_SQUARES).into_iter()
+            .map(|_| Square::new(w, h))
+            .collect();
     }
     pub fn set_color(&mut self, color: color::Rgb) {
         self.color = color;
@@ -83,8 +81,22 @@ impl Quad {
     }
 }
 
+fn gen_structures() -> Vec<SquareStructure>{
+    let mut quads = vec!();
+    for i in 0..NUM_QUAD_X {
+        for j in 0..NUM_QUAD_Y {
+            let q = SquareStructure::new(i as f32, j as f32,
+                                         WIN_W as f32, WIN_H as f32,
+                                         QUAD_W, QUAD_H);
+            quads.push(q);
+        }
+    }
+    quads
+}
+
 struct Model {
-    quads: Vec<Quad>
+    square_structures: Vec<SquareStructure>,
+    current_num_squares: usize
 }
 
 fn model(app: &App) -> Model {
@@ -97,57 +109,60 @@ fn model(app: &App) -> Model {
         .build()
         .unwrap();
 
-    //app.set_loop_mode(LoopMode::loop_once());
     app.set_loop_mode(LoopMode::Wait);
-    //app.set_loop_mode(LoopMode::rate_fps(4.0));
 
-    Model { quads: gen_quads() }
+    Model { square_structures: gen_structures(),
+            current_num_squares: MAX_NUM_SQUARES }
 }
 
 fn mouse_released(_app: &App, model: &mut Model, _button: MouseButton) {
     match _button {
         MouseButton::Left => {
-            println!("LEFT");
-
-            for quad in model.quads.iter_mut() {
-                quad.set_points(QUAD_W, QUAD_H);
+            //println!("LEFT");
+            for structure in model.square_structures.iter_mut() {
+                structure.set_points(QUAD_W, QUAD_H);
             }
         },
         MouseButton::Right => {
-            println!("RIGHT");
-            model.quads = gen_quads();
+            //println!("RIGHT");
+            for structure in model.square_structures.iter_mut() {
+                structure.set_color(SquareStructure::rando_color());
+            }
         },
         _ => {}
     }
 }
 
-fn mouse_wheel(_app: &App, _model: &mut Model, _dt: MouseScrollDelta, _phase: TouchPhase) {
+fn mouse_wheel(_app: &App, model: &mut Model, _dt: MouseScrollDelta, _phase: TouchPhase) {
     match _dt {
         MouseScrollDelta::LineDelta(_, y) if y > 0.0 => {
-            println!("scroll up");
+            if model.current_num_squares < MAX_NUM_SQUARES {
+                model.current_num_squares += 1;
+            }
+            //println!("scroll up, #{}", model.current_num_squares);
         },
         MouseScrollDelta::LineDelta(_, y) if y < 0.0 => {
-            println!("scroll down");
+            if model.current_num_squares > 1 {
+                model.current_num_squares -= 1;
+            }
+            //println!("scroll down, #{}", model.current_num_squares);
         },
         _ => {}
     }
-}
-
-fn update(_app: &App, _model: &mut Model, _update: Update) {
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
     draw.background().rgb(0.88, 0.87, 0.85);
 
-    // map_range(app.time.sin(), -1.0, 1.0, 1.0, 3.0)
-
-    for quad in model.quads.iter() {
-        draw.polyline()
-            .xy(quad.position)
-            .color(quad.color)
-            .weight(3.0)
-            .points(quad.points.iter().cloned());
+    for structure in model.square_structures.iter() {
+        for square in structure.collection.iter().take(model.current_num_squares) {
+            draw.polyline()
+                .xy(structure.position)
+                .color(structure.color)
+                .weight(3.0)
+                .points(square.points.iter().cloned());
+        }
     }
 
     draw.to_frame(app, &frame).unwrap();
