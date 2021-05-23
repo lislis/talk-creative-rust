@@ -118,13 +118,11 @@ fn model(app: &App) -> Model {
 fn mouse_released(_app: &App, model: &mut Model, _button: MouseButton) {
     match _button {
         MouseButton::Left => {
-            //println!("LEFT");
             for structure in model.square_structures.iter_mut() {
                 structure.set_points(QUAD_W, QUAD_H);
             }
         },
         MouseButton::Right => {
-            //println!("RIGHT");
             for structure in model.square_structures.iter_mut() {
                 structure.set_color(SquareStructure::rando_color());
             }
@@ -139,13 +137,11 @@ fn mouse_wheel(_app: &App, model: &mut Model, _dt: MouseScrollDelta, _phase: Tou
             if model.current_num_squares < MAX_NUM_SQUARES {
                 model.current_num_squares += 1;
             }
-            //println!("scroll up, #{}", model.current_num_squares);
         },
         MouseScrollDelta::LineDelta(_, y) if y < 0.0 => {
             if model.current_num_squares > 1 {
                 model.current_num_squares -= 1;
             }
-            //println!("scroll down, #{}", model.current_num_squares);
         },
         _ => {}
     }

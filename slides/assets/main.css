@@ -11,10 +11,19 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Compagnon';
+  src: url('fonts/Compagnon-Italic.woff2') format('woff2'),
+       url('fonts/Compagnon-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+}
+
 
 body {
   font-size: 26px;
   font-family: 'Compagnon', serif;
+  font-weight: 600;
 }
 
 .hidden {
@@ -26,15 +35,42 @@ body {
 }
 
 .subtitle {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 .link {
   position: absolute;
   bottom: 1rem;
   font-size: 0.8rem;
-
 }
+
+.highlight {
+  display: inline-block;
+  border: 2px solid var(--link-color);
+}
+
+.highlight ul {
+  margin: 0;
+  padding-bottom: 0.2em;
+  padding-right: 0.8rem;
+}
+
+blockquote {
+  letter-spacing: -2px;
+  font-size: 3rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.cite {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.half {
+  width: 50%;
+}
+
 .blend {
 
   background-blend-mode: difference;
@@ -83,4 +119,9 @@ table td {
 .flip {
   transform: rotateY(180deg) scale(1.3);
   display: inline-block;
+}
+
+.sec.remark-slide-content {
+  background-color: var(--link-color);
+  color: #181818;
 }
