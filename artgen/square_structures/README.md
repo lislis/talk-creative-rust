@@ -330,7 +330,7 @@ Boom!
 
 ## Step 4
 
-![step4](screenshots/step4.pn)
+![step4](screenshots/step4.png)
 
 Now for each position, we want to draw multiple rectangles and not only one.
 
