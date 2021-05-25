@@ -7,3 +7,31 @@ edition = "2018"
 [dependencies]
 nannou = "0.16"
 rand = "0.8.3"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "step1"
+path = "src/steps/step1.rs"
+
+[[bin]]
+name = "step2"
+path = "src/steps/step2.rs"
+
+[[bin]]
+name = "step3"
+path = "src/steps/step3.rs"
+
+[[bin]]
+name = "step4"
+path = "src/steps/step4.rs"
+
+[[bin]]
+name = "step5"
+path = "src/steps/step5.rs"
+
+[[bin]]
+name = "step6"
+path = "src/steps/step6.rs"
