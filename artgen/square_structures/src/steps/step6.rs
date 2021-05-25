@@ -68,12 +68,14 @@ impl SquareStructure {
         }
     }
 
+    // new
     pub fn set_points(&mut self) {
         self.collection = (0..MAX_NUM_SQUARES).into_iter()
             .map(|_| Square::new())
             .collect();
     }
 
+    // new
     pub fn set_color(&mut self) {
         self.color = SquareStructure::rando_color();
     }
@@ -105,15 +107,15 @@ fn gen_structures() -> Vec<SquareStructure> {
 struct Model {
     _window: window::Id,
     square_structures: Vec<SquareStructure>,
-    current_num_squares: usize
+    current_num_squares: usize // new
 }
 
 fn model(app: &App) -> Model {
     let _window = app.new_window()
         .title("Structure de Quadrilatères (Square Structures)")
         .size(WIN_W, WIN_H)
-        .mouse_released(mouse_released)
-        .mouse_wheel(mouse_wheel)
+        .mouse_released(mouse_released) // add this
+        .mouse_wheel(mouse_wheel) // add this
         .view(view)
         .build()
         .unwrap();
@@ -122,9 +124,10 @@ fn model(app: &App) -> Model {
 
     Model { _window,
              square_structures,
-             current_num_squares: MAX_NUM_SQUARES }
+             current_num_squares: MAX_NUM_SQUARES } // new
 }
 
+// add this
 fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
     match button {
         MouseButton::Left => {
@@ -141,6 +144,7 @@ fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
     }
 }
 
+// add this
 fn mouse_wheel(_app: &App, model: &mut Model, dt: MouseScrollDelta, _phase: TouchPhase) {
     match dt {
         MouseScrollDelta::LineDelta(_, y) if y > 0.0 => {
@@ -164,7 +168,7 @@ fn view(app: &App, model: &Model, frame: Frame) {
     draw.background().rgb(0.88, 0.87, 0.85);
 
     for structure in model.square_structures.iter() {
-        for square in structure.collection.iter().take(model.current_num_squares) {
+        for square in structure.collection.iter().take(model.current_num_squares) { // change here
             draw.polyline()
                 .xy(structure.position)
                 .color(structure.color)

@@ -1,6 +1,6 @@
 use nannou::prelude::*;
-use rand::seq::SliceRandom;
-use nannou::color;
+use rand::seq::SliceRandom; // new
+use nannou::color; // add this
 
 const WIN_W:u32 = 600;
 const WIN_H:u32 = 900;
@@ -17,7 +17,7 @@ fn main() {
 struct SquareStructure {
     position: Vector2,
     points: Vec<Vector2>,
-    color: color::Rgb
+    color: color::Rgb // add this
 }
 
 impl SquareStructure {
@@ -45,10 +45,11 @@ impl SquareStructure {
         SquareStructure {
             position,
             points,
-            color: SquareStructure::rando_color()
+            color: SquareStructure::rando_color() // new
         }
     }
 
+    // add this
     pub fn rando_color() -> color::Rgb {
         let colors = vec!(
             rgb(0.38, 0.68, 0.67), // green
@@ -101,7 +102,7 @@ fn view(app: &App, model: &Model, frame: Frame) {
     for structure in model.square_structures.iter() {
         draw.polyline()
             .xy(structure.position)
-            .color(structure.color)
+            .color(structure.color) // boom
             .weight(3.0)
             .points(structure.points.iter().cloned());
     }

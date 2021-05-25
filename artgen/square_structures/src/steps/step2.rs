@@ -1,5 +1,6 @@
 use nannou::prelude::*;
 
+// add these
 const WIN_W:u32 = 600;
 const WIN_H:u32 = 900;
 
@@ -14,12 +15,13 @@ struct Model {
 
 fn model(app: &App) -> Model {
     let _window = app.new_window()
-        .title("Structure de Quadrilatères (Square Structures)")
-        .size(WIN_W, WIN_H)
+        .title("Structure de Quadrilatères (Square Structures)") // add this
+        .size(WIN_W, WIN_H) // and this
         .view(view)
         .build()
         .unwrap();
 
+    // make a random rectangle
     let w = 100.0;
     let h = 100.0;
 
@@ -40,8 +42,9 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {}
 fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
     draw.background().color(PLUM);
+
+    // draw the rectangle
     draw.polyline()
-        .x_y(0.0, 0.0)
         .color(STEELBLUE)
         .weight(3.0)
         .points(model.points.clone());

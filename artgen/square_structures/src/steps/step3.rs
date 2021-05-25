@@ -1,5 +1,6 @@
 use nannou::prelude::*;
 
+// more here
 const WIN_W:u32 = 600;
 const WIN_H:u32 = 900;
 const SQUARE_W:f32 = 60.0;
@@ -12,6 +13,7 @@ fn main() {
     nannou::app(model).update(update).run();
 }
 
+// add these
 struct SquareStructure {
     position: Vector2,
     points: Vec<Vector2>
@@ -46,11 +48,7 @@ impl SquareStructure {
     }
 }
 
-struct Model {
-    _window: window::Id,
-    square_structures: Vec<SquareStructure>
-}
-
+// and this
 fn gen_structures() -> Vec<SquareStructure> {
     let mut sqrs = vec!();
     for i in 0..NUM_X {
@@ -62,6 +60,12 @@ fn gen_structures() -> Vec<SquareStructure> {
     sqrs
 }
 
+
+struct Model {
+    _window: window::Id,
+    square_structures: Vec<SquareStructure> // change this
+}
+
 fn model(app: &App) -> Model {
     let _window = app.new_window()
         .title("Structure de Quadrilatères (Square Structures)")
@@ -70,10 +74,10 @@ fn model(app: &App) -> Model {
         .build()
         .unwrap();
 
-    let square_structures = gen_structures();
+    let square_structures = gen_structures();  // add this
 
     Model { _window,
-             square_structures }
+             square_structures } // change this
 }
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {}
@@ -82,6 +86,7 @@ fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
     draw.background().color(PLUM);
 
+    // and iterate here
     for structure in model.square_structures.iter() {
         draw.polyline()
             .xy(structure.position)

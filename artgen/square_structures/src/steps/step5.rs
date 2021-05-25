@@ -8,14 +8,14 @@ const SQUARE_W:f32 = 60.0;
 const SQUARE_H:f32 = 80.0;
 const NUM_X:i32 = 7;
 const NUM_Y:i32 = 9;
-const MAX_NUM_SQUARES:usize = 10;
+const MAX_NUM_SQUARES:usize = 10; // new
 
 
 fn main() {
     nannou::app(model).update(update).run();
 }
 
-
+// add new struct
 struct Square {
     points: Vec<Vector2>
 }
@@ -40,7 +40,7 @@ impl Square {
 
 struct SquareStructure {
     position: Vector2,
-    collection: Vec<Square>,
+    collection: Vec<Square>, // change this
     color: color::Rgb
 }
 
@@ -58,6 +58,7 @@ impl SquareStructure {
 
         let position = vec2(x, y);
 
+        // change this
         let collection = (0..MAX_NUM_SQUARES).into_iter()
             .map(|_| Square::new())
             .collect();
@@ -119,7 +120,7 @@ fn view(app: &App, model: &Model, frame: Frame) {
     draw.background().rgb(0.88, 0.87, 0.85);
 
     for structure in model.square_structures.iter() {
-        for square in structure.collection.iter() {
+        for square in structure.collection.iter() { // new loop
             draw.polyline()
                 .xy(structure.position)
                 .color(structure.color)
