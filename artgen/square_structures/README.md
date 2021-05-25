@@ -140,6 +140,8 @@ Looking good!
 
 ## Step 2
 
+![step2](screenshots/step2.png)
+
 We now draw random rectangle at the start, let's draw a grid of them!
 
 Let's add some abstraction and create a representation of the thing we want a grid of, I called it a `SquareStructure` and at first it will hold a position (in the grid) and the points we need for the polyline.
@@ -271,6 +273,8 @@ When you run the app now, you'll see the grid we drew is off-center, which makes
 
 ## Step 3
 
+![step3](screenshots/step3.png)
+
 Let's adjust the colors next. We'll add color to our SquareStructure and assign pick a random color from a predefined selection of colors. We'll use the rand crate for that.
 
 ``` rust
@@ -325,6 +329,8 @@ And then we use each color to draw.
 Boom!
 
 ## Step 4
+
+![step4](screenshots/step4.pn)
 
 Now for each position, we want to draw multiple rectangles and not only one.
 
@@ -398,6 +404,8 @@ And then we draw it!
 Yay, pretty close I'd say!
 
 ## Step 5
+
+![step5](screenshots/step5.png)
 
 Finally, let's start playing around with what we have!
 
@@ -528,6 +536,8 @@ Nice! And with this we're done!
 
 
 ## Step 6
+
+![step6](screenshots/step6.gif)
 
 We can still do some cleanup. For example we don't need the `update` function at all in our case and our `Model` does not need to hold the window.
 
