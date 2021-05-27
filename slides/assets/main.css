@@ -96,6 +96,10 @@ a {
   width: 50%;
 }
 
+.center {
+  text-align: center;
+}
+
 
 .remark-slide-content {
   background-color: #181818;
