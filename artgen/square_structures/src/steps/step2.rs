@@ -10,7 +10,7 @@ fn main() {
 
 struct Model {
     _window: window::Id,
-    points: Vec<Vector2>
+    points: Vec<Vector2> // add this
 }
 
 fn model(app: &App) -> Model {

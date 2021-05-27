@@ -97,7 +97,7 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {}
 
 fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
-    draw.background().rgb(0.88, 0.87, 0.85);
+    draw.background().rgb(0.88, 0.87, 0.85); // changed
 
     for structure in model.square_structures.iter() {
         draw.polyline()

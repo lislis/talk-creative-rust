@@ -8,7 +8,6 @@ const SQUARE_H:f32 = 80.0;
 const NUM_X:i32 = 7;
 const NUM_Y:i32 = 9;
 
-
 fn main() {
     nannou::app(model).update(update).run();
 }
